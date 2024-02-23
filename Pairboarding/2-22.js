@@ -1,39 +1,17 @@
-
-
-function mergeSortedLL(list1, list2){
-    if(!list1){
-        return list2
-    }
-    if(!list2){
-        return list1
-    }
-
-    if(list1.val >= list2.val){
-        let return_val = list1, primary_list = list1, secondary_list = list2
-    }
-    else{
-        let return_val = list2, primary_list = list2, secondary_list = list1
-    }
-
-    while(primary_list || secondary_list){
-        if(!primary_list.next){
-            primary_list.next = secondary_list
-            return return_val
+var mergeTwoLists = function(l1, l2) {
+    var mergedHead = { val : -1, next : null },
+        crt = mergedHead;
+    while(l1 && l2) {
+        if(l1.val > l2.val) {
+            crt.next = l2;
+            l2 = l2.next;
+        } else {
+            crt.next = l1;
+            l1 = l1.next;
         }
-        if(!secondary_list){
-            return return_val
-        }
-
-        if(primary_list.next.val <= secondary_list.val){
-            primary_list = primary_list.next
-        }
-
-        else{
-            temp = secondary_list
-            temp.next = primary_list.next
-            primary_list.next = temp
-            secondary_list = secondary_list.next
-            primary_list = primary_list.next
-        }
+        crt = crt.next;
     }
-}
+    crt.next = l1 || l2;
+
+    return mergedHead.next;
+};
